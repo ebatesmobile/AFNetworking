@@ -101,7 +101,7 @@
 @dynamic securityPolicy;
 
 - (void)setSecurityPolicy:(AFSecurityPolicy *)securityPolicy {
-    if (securityPolicy.SSLPinningMode != AFSSLPinningModeNone && ![self.baseURL.scheme isEqualToString:@"https"]) {
+    if (self.baseURL.absoluteString.length && securityPolicy.SSLPinningMode != AFSSLPinningModeNone && ![self.baseURL.scheme isEqualToString:@"https"]) {
         NSString *pinningMode = @"Unknown Pinning Mode";
         switch (securityPolicy.SSLPinningMode) {
             case AFSSLPinningModeNone:        pinningMode = @"AFSSLPinningModeNone"; break;
