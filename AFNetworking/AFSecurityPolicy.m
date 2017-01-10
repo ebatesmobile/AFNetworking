@@ -263,6 +263,21 @@ static NSArray * AFPublicKeyTrustChainForServerTrust(SecTrustRef serverTrust) {
             SecTrustSetAnchorCertificates(serverTrust, (__bridge CFArrayRef)pinnedCertificates);
 
             if (!AFServerTrustIsValid(serverTrust)) {
+                CFIndex certificateCount = SecTrustGetCertificateCount(serverTrust);
+                NSMutableArray<NSString *> *failedCertSummaries = [NSMutableArray array];
+                
+                for (CFIndex i = 0; i < certificateCount; i++) {
+                    SecCertificateRef certificate = SecTrustGetCertificateAtIndex(serverTrust, i);
+                    CFStringRef summaryRef = SecCertificateCopySubjectSummary(certificate);
+                    NSString *summary = (__bridge NSString *)summaryRef;
+                    [failedCertSummaries addObject:summary];
+                    CFRelease(summaryRef);
+                }
+                
+                if (failedCertSummaries.count) {
+                    self.failedCertificateSummaries = failedCertSummaries;
+                }
+
                 return NO;
             }
 
