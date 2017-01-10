@@ -62,6 +62,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) BOOL validatesDomainName;
 
+/**
+ Summaries of failed certs
+ */
+@property (nonatomic, copy, nullable) NSArray<NSString *> *failedCertificateSummaries;
+
 ///-----------------------------------------
 /// @name Getting Certificates from the Bundle
 ///-----------------------------------------
