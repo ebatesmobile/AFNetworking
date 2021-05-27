@@ -116,8 +116,6 @@ typedef void (^AFNetworkActivityActionBlock)(BOOL networkActivityIndicatorVisibl
         [self didChangeValueForKey:@"networkActivityIndicatorVisible"];
         if (self.networkActivityActionBlock) {
             self.networkActivityActionBlock(networkActivityIndicatorVisible);
-        } else {
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:networkActivityIndicatorVisible];
         }
     }
 }
